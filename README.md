@@ -1,3 +1,4 @@
+**ROLE:** Organizational hub coordinating MOSGM analysis, private development, and public distribution; Zenodo remains the authoritative record.
 # MOSGM Research Overview
 
 The authoritative and citable records for the
