@@ -31,4 +31,5 @@ publication of the Matter-Organized Spacetime
 Gradient Model (MOSGM).
 
 Canonical records and DOIs are hosted on Zenodo.
+**For reviewers:** Please begin with the Zenodo DOI records for authoritative citations; GitHub repositories provide analysis transparency and distribution only.
 
