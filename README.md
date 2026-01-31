@@ -20,3 +20,10 @@ for transparency and collaboration.
 • Drafts, proofs, and internal notes remain private  
 • Only finalized material is published here  
 • Zenodo remains the canonical reference
+# MOSGM Research Group
+
+Official organization for the development and
+publication of the Matter-Organized Spacetime
+Gradient Model (MOSGM).
+
+Canonical records and DOIs are hosted on Zenodo.
