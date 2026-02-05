@@ -1,36 +1,31 @@
 import numpy as np
+import matplotlib.pyplot as plt
+
+from analysis.sensitivity_scan import run_gated_sweep
 
 
-def run_gated_sweep():
-    # Same toy setup
-    r = np.linspace(0.5, 30.0, 300)
-    Mb = 1e10  # Msun
-    gN = 6.67e-11 * Mb * 1.989e30 / (r * 3.086e19) ** 2
+if __name__ == "__main__":
+    eps_vals, degenerate_frac = run_gated_sweep()
 
-    # MOND baseline
-    a0 = 1.2e-10
-    x = gN / a0
-    gMOND = gN / (1 + 1 / x)  # μ(x)=x/(1+x)
+    eps_vals = np.asarray(eps_vals)
+    degenerate_frac = np.asarray(degenerate_frac)
 
-    results = []
+    plt.figure(figsize=(7, 4.5))
+    plt.plot(eps_vals, degenerate_frac * 100, marker="o")
 
-    # Epsilon values (logarithmic spacing)
-    eps_vals = np.logspace(-5, -1, 20)
+    plt.axhline(95, linestyle="--", linewidth=1)
+    plt.text(
+        eps_vals.min(),
+        96,
+        "MOND-degenerate region (≤5% deviation)",
+        fontsize=9,
+        verticalalignment="bottom",
+    )
 
-    for eps in eps_vals:
-        # Gated MOSGM
-        dln_gbar = np.gradient(np.log(gN), np.log(r))
-        gate = np.exp(-(r / 8.0) ** 2)  # r_gate = 8 kpc
-        agrad = eps * dln_gbar * gN * gate
-        gMOSGM = gMOND + agrad
+    plt.xlabel(r"Epsilon ($\epsilon$)")
+    plt.ylabel("Degeneracy (%)")
+    plt.title("MOSGM–MOND Degeneracy vs Gated Response ($r_0 = 8$ kpc)")
 
-        # Degeneracy calculation
-        rel_diff = np.abs(gMOSGM - gMOND) / gMOND
-        degenerate_frac = np.mean(rel_diff < 0.05) * 100
-
-        results.append((eps, degenerate_frac))
-        print(
-            f"μ = {eps:.1e} | r_gate = 8 kpc | degeneracy = {degenerate_frac:.1f}%"
-        )
-
-    return results
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show()
